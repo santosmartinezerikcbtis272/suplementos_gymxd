@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="suplementos_gym/templates")
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret")
 
 
@@ -315,3 +315,4 @@ def admin_agregar_producto():
 # ---------------------- EJECUTAR APP ----------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
+
