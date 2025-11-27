@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Suplementos Gym{% endblock %}</title>
+
+    <!-- ESTO ES MUY IMPORTANTE -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Fuente Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-left">
+            <a href="{{ url_for('index') }}"><strong>🏋️ SUPLEMENTOS</strong></a>
+            <a href="{{ url_for('cart') }}">🛒 Carrito</a>
+        </div>
+
+        <div class="nav-right">
+            {% if user %}
+                <span>👤 {{ user.nombre }}</span>
+
+                {% if user.rol == "admin" %}
+                    <a href="{{ url_for('admin_panel') }}" style="color: #ff4444; font-weight: bold;">ADMIN</a>
+                {% endif %}
+
+                <a href="{{ url_for('logout') }}">Cerrar Sesion</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Ingresar</a>
+            {% endif %}
+
+            <form method="GET" action="{{ url_for('index') }}" class="search-form">
+                <input type="text" name="search" placeholder="🔍 Buscar suplementos..." class="search-input">
+                <button type="submit" class="search-btn">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- FLASH MESSAGES (DEBE ESTAR AQUÍ) -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main style="padding-bottom: 40px;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer style="text-align:center; padding:20px; background:#111; color:#888;">
+        Suplementos Gym © {{ current_year }}
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width: 600px; margin: 40px auto; background: #1a1a1a; padding: 25px; border-radius: 12px; text-align: center; color: white;">
+
+    <h2 style="color: #ff4d4d;">✔ ¡Compra realizada con éxito!</h2>
+
+    <p style="margin-top: 10px; font-size: 18px;">
+        Gracias por tu compra. Tus datos de entrega han sido enviados y un asesor se pondrá en contacto contigo.
+    </p>
+
+    <a href="{{ url_for('index') }}"
+       style="display: inline-block; margin-top: 20px; padding: 12px 20px;
+              background: #ff4d4d; color: white; border-radius: 8px; text-decoration: none;">
+        Volver al inicio
+    </a>
+
+</div>
+
+{% endblock %}
+    

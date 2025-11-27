@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="checkout-container">
+  <!-- Resumen de compra -->
+  <div class="resumen-compra">
+    <h2> RESUMEN DE COMPRA</h2>
+    <ul>
+      {% for producto in productos %}
+        <li>{{ producto.nombre }} (x{{ producto.quantity }}) — <span>${{ producto.subtotal }}</span></li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <p class="total">Total: <strong>${{ total }}</strong></p>
+  </div>
+
+  <!-- Formulario de pago -->
+  <div class="formulario-pago">
+    <h2> DATOS DE PAGO</h2>
+
+    <form method="POST" action="{{ url_for('confirm_order') }}">
+      <input type="text" name="nombre" placeholder="Nombre completo" value="{{ user.nombre }}" required>
+      <input type="email" name="email" placeholder="Correo electrónico" value="{{ user.email }}" required>
+      <input type="text" name="direccion" placeholder="Dirección de envío" required>
+      <input type="text" name="tarjeta" placeholder="Número de tarjeta" required maxlength="16">
+      <input type="text" name="cvv" placeholder="CVV (3 dígitos)" required maxlength="3">
+      <label>Fecha de expiración:</label>
+      <input type="month" name="expiracion" required>
+
+      <input type="hidden" name="metodo_pago" value="Tarjeta">
+
+      <button type="submit" class="btn-confirmar">Confirmar pago</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
